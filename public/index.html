@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+ 
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+  
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+
+  <script src="https://www.gstatic.com/firebasejs/ui/3.1.1/firebase-ui-auth__{LANGUAGES.md}.js"></script>
+ 
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.1.1/firebase-ui-auth.css" />
+
+</head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="container-fluid" id="logo">
+          <a class=img href='https://photos.google.com/share/AF1QipOjcilM4AI9cLt8yV8BEkDKdBmSrM7teoi8LKmvTo1Z7xZ_Tw_yzy3jn_c_OegCRg?key=WC1xbWdoOVZBWHJpTFF2aHYzMGt2WEFnazlVYWtR&source=ctrlq.org'><img src='https://lh3.googleusercontent.com/q1L6ZvcQGau5Pufxl_ORYUfGrp9SDhhbI1xiOZqtzigZEpR7rwd3zhlrAB6Ru1QNBlcqk2xyB-DxdjZ8_DKE9hO_VIV5DizKZmbyAuumIkzNASq3nm3ZTV-3slJORDvNKSXIjXeRkA=w2400' height="45" width="230"  hspace="0"/>
+          </a>
+      </div>
+    </div>
+
+    <div class="container-fluid" id="portfolio"> <br></br>
+      <div class="container" id="app">
+        <div class="row">
+          <div class="col-md-12" style="background-color:#B0C4DE;">
+             <label class="des">Loan Calculator</label>
+          </div>
+        </div>
+
+         <div class="row" style="background-color:#EBF5FB;">
+          <div class="col-xs-6 col-md-2" id="YAMAHA">
+            <input type="checkbox" id="yamahacheck" v-model="yamahacheck" name="model">
+            <label for="yamahacheck" class="pick">YAMAHA</label>
+            </input>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="HONDA">
+            <input type="checkbox" id="hondacheck" v-model="hondacheck" name="model" >
+            <label for="hondacheck" class="pick">HONDA</label>
+            </input>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="SUZUKI">
+            <input type="checkbox" id="suzukicheck" v-model="suzukicheck" name="model">
+            <label for="suzukicheck" class="pick">SUZUKI</label>
+            </input>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="KAWASAKI">
+            <input type="checkbox" id="kawasakicheck" v-model="kawasakicheck" name="model">
+            <label for="kawasakicheck" class="pick">KAWASAKI</label>
+            </input>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="KYMCO">
+            <input type="checkbox" id="kymcocheck" v-model="kymcocheck" name="model">
+            <label for="kymcocheck" class="pick">KYMCO</label>
+            </input>
+          </div>
+
+        </div><br><br>
+
+        <div class="row" id="row1">
+          <div class="col-xs-6 col-md-4" style="background-color: white;">
+            <label class="ccashprice">Total Cash Price:</label>
+            <input class="cashprice" id="cashprice" v-model="cashprice" type="number" class="form-control" name="cashprice" placeholder=""><br></br>
+          </div>
+
+           <div class="col-xs-6 col-md-4" style="background-color: white;">
+            <label class="cdiscount">Discount :</label>
+            <input class="discount" id="discount" v-model="discount" type="number" class="form-control" name="discount" placeholder=""><br></br>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="terms6" style="display: none;">
+            <label class="termclass">6 Months:</label>
+            <input class="term6" id="term6" v-model="term6" type="number" class="form-control" name="term6" readonly  disabled><br></br>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="terms12" style="display: none;">
+            <label class="termclass">12 Months:</label>
+            <input class="term12" id="term12" v-model="term12" type="number" class="form-control" name="term12" readonly  disabled> <br></br>
+          </div>
+        </div>
+
+        <div class="row" id="row2">
+          <div class="col-xs-6 col-md-4" style="background-color:white;">
+            <label class="cdp">Down Payment:</label>
+            <input class="dp" id="dp" v-model="dp" type="number" class="form-control" name="dp" placeholder=""><br></br>
+          </div>
+
+          <div class="col-xs-6 col-md-4" style="background-color:white;">
+            <label class="cterm">Term (months):</label>
+            <input class="term" id="term" v-model="term" type="number" class="form-control" name="term" placeholder="" maxlength="2"> <br></br>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="terms18" style="display: none;">
+            <label class="termclass">18 Months:</label>
+            <input class="term18" id="term18" v-model="term18" type="number" class="form-control" name="term18" readonly  disabled><br></br>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="terms24" style="display: none;">
+            <label class="termclass">24 Months:</label>
+            <input class="term24" id="term24" v-model="term24" type="number" class="form-control" name="term24" readonly  disabled><br></br>
+          </div>
+        </div>  
+
+        <div class="row" id="row3">
+          <div class="col-xs-6 col-md-4" style="background-color: white;">
+            <input type="checkbox" v-model="checkinsurance" id="checkbox">
+            <label class="cins">With Insurance</label>
+            </input>
+          </div><br></br>
+
+           <div class="col-xs-6 col-md-4" style="background-color: white;">
+            <input type="checkbox" v-model="cebuchecked" id="cebuchecked">
+            <label class="cins">Cebu Claster</label>
+            </input>
+          </div><br></br>
+
+          <div class="col-xs-6 col-md-2" id="terms30" style="display: none;">
+            <label class="termclass">30 Months:</label>
+            <input class="term30" id="term30" v-model="term30" type="number" class="form-control" name="term30" readonly  disabled><br></br>
+          </div>
+
+          <div class="col-xs-6 col-md-2" id="terms36" style="display: none;">
+            <label class="termclass">36 Months:</label>
+            <input class="term36" id="term36" v-model="term36" type="number" class="form-control" name="term36" readonly  disabled> <br></br>
+          </div>
+        </div>
+       
+          <div class="container-fluid">
+             <div class="row">
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="cclas">Claster : </label>
+                <input class="claster" id="claster" v-model="claster" class="form-control" name="claster" placeholder="" readonly  disabled>
+              </div>
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="cprim">Premium : Php </label>
+                <input class="premium" id="premium" v-model="premium" type="number" class="form-control" name="premium" placeholder="" readonly  disabled>
+              </div>
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="ctax">Taxes : Php </label>
+                <input class="taxes" id="taxes" v-model="taxes" type="number" class="form-control" name="taxes" placeholder="" readonly  disabled>
+              </div>
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="cins">Add on Rate (%) : </label>
+                <input class="aor" id="aor" v-model="aor" type="number" class="form-control" name="aor" placeholder="" readonly  disabled>
+              </div>
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="cins">Insurance : Php </label>
+                <input class="ins" id="ins" v-model="ins" type="number" class="form-control" name="ins" placeholder="" readonly  disabled>
+              </div>
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="cdpp">Downpayment(%):</label>
+                <input class="dpp" id="dpp" v-model="dpp" type="number" class="form-control" name="dpp" placeholder="" readonly  disabled>
+              </div>
+
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="cfa">Finance Amount : Php </label>
+                <input class="fa" id="fa" v-model="fa" type="number" class="form-control" name="fa" placeholder="" readonly  disabled>
+              </div><br>
+ 
+              <div class="col-md-12" style="background-color:#B0C4DE;">
+                <label class="ctotal">Monthly Amortization : Php </label>
+                <input class="total" id="total" v-model="ma" type="number" class="form-control" name="total" placeholder="" readonly  disabled>
+              </div>
+            </div><br>
+          </div>
+</form>
+      <div>
+        <button id="but1" @click="check" onclick="toggle()">COMPUTE</button>
+        <button @click="theclear" onclick="hide()">CLEAR</button>
+      </div><br>
+
+
+      </div>
+    </div>  
+
+    <footer>
+      <div class="container-fluid" id="feet">
+        <br><br>
+        <br>URL BASED : https://us-central1-loan-calculator-7f21f.cloudfunctions.net/api/lc/fa/term/aor
+        <br>version 1<br>
+      &copy; 2018
+      </div>
+    </footer>
+
+<script>
+
+function toggle() 
+{
+    var x = document.getElementById("terms6");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+    var x = document.getElementById("terms12");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+    var x = document.getElementById("terms18");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+    var x = document.getElementById("terms24");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+    var x = document.getElementById("terms30");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }
+    var x = document.getElementById("terms36");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } 
+}
+
+  function hide() 
+  {
+    var x = document.getElementById("terms6");
+        x.style.display = "none";
+    var x = document.getElementById("terms12");
+        x.style.display = "none";
+    var x = document.getElementById("terms18");
+        x.style.display = "none";
+    var x = document.getElementById("terms24");
+        x.style.display = "none";
+    var x = document.getElementById("terms30");
+        x.style.display = "none";
+    var x = document.getElementById("terms36");
+        x.style.display = "none";
+  }
+</script>
+
+<style>
+
+button
+{
+  background-color: #3E9B47; /* sky blue */
+  border: none;
+  color:white;
+  padding: 15px 30px;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+#row1 {
+    margin-left: 0px;
+    margin-right: 0px;
+    height:100%;
+    overflow: hidden;
+    width: 100%;
+}
+#row2 {
+    margin-left: 0px;
+    margin-right: 0px;
+    height:100%;
+    overflow: hidden;
+    width: 100%;
+}
+#row3 {
+    margin-left: 0px;
+    margin-right: 0px;
+    height:100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+#portfolio 
+{
+background-color: #EFF0F0;
+}
+
+#app 
+{
+background-color: white;
+}
+
+#feet 
+{
+background-color: #EFF0F0;
+}
+
+.img
+{
+padding-top: 50px;
+padding-bottom: 20px;
+}
+br 
+{
+display: block;
+line-height:0px;
+}
+
+.des
+{
+font-size: 30px;
+color: #2F4F4F;
+}
+
+.ccashprice
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.cdp
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.cdiscount
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.cclas
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.cpfee
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.cdpp
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.cins
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.pick
+{
+font-size: 16px;
+color: #2F4F4F;
+}
+
+.cinsurance
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.cfa
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.cbox
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.termclass
+{
+font-size: 18px;
+color: green;
+}
+
+.caor
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+.cterm
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.ctotal
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.ctax
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+.cprim
+{
+font-size: 20px;
+color: #2F4F4F;
+}
+
+#logo
+{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.cashprice
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center
+}
+
+.insurance
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center
+}
+.claster
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center
+}
+
+.pfee
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+}
+
+.fa
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+
+.dpp
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+
+.dp
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+}
+
+.discount
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+}
+
+.aor
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+
+.ins
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+.taxes
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+.premium
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+
+.term
+{
+  border: 0px solid #000000;
+  border-color: #DCDCDC;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  max
+}
+
+.total
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 20px;
+  color:  black;
+}
+
+.read
+{
+  background-color: #b0c4de;
+  font-size: 18px ;
+  color: #708090;
+}
+
+.term6
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 18px;
+  color: #2F4F4F;
+}
+.term12
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 18px;
+  color: #2F4F4F;
+}
+.term18
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 18px;
+ color: #2F4F4F;
+}
+.term24
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 18px;
+ color: #2F4F4F;
+}
+
+.term30
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 18px;
+  color: #2F4F4F;
+}
+.term36
+{
+  border: 0px solid #000000;
+  border-bottom-width: 0px;
+  width: 50%;
+  background-color: transparent;
+  font-size: 18px;
+  color:  #2F4F4F;
+}
+
+input:focus 
+{ 
+  border: 0px solid #2F4F4F;
+  border-bottom-width: 1px;
+  background-color: transparent;
+  outline: none;
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="loancalc.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-firestore.js"></script>
+
+</body>
+</html>
